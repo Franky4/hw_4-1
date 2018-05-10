@@ -23,9 +23,8 @@ def count_top3(years):
     names_all = pd.concat(names_list)
     names_all2 = names_all.groupby(['Gender', 'Name']).sum()
     names_all2 = names_all2.sort_values(by='Count', ascending=False).head(3)
-    print(names_all2.values['Name'])
-
-    return names_all2
+    names_all2 = names_all2.reset_index()
+    return [x for x in names_all2.Name]
 
 
 def count_dynamics(years):
