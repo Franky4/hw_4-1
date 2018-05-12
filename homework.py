@@ -29,12 +29,16 @@ def count_top3(years):
 
 def count_dynamics(years):
     names_row = ['Name', 'Gender', 'Count']
-    names_list = [pd.read_csv(DATA_PATH + 'yob' + str(year) + '.txt', names=names_row) for year in years]
-    names_all = pd.concat(names_list)
-    names_all2 = names_all.groupby(['Gender']).sum()
-    names_all2 = names_all2.sort_values(by='Count', ascending=False)
+    names_list = {year: pd.read_csv(DATA_PATH + 'yob' + str(year) + '.txt', names=names_row) for year in years}
+    names_all = pd.concat(names_list, names=['Year'])
+    del names_all['Name']
+    names_all = names_all.groupby(['Gender', 'Year']).sum()
+    names_all = names_all.reset_index()
+    names_all = names_all.sort_values(by=['Gender', 'Year'], ascending=True)
+    del names_all['Year']
 
-    return names_all2
+    return {x[0]: x[1] for x in names_all.values}
+
 
 # In[101]:
 
