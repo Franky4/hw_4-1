@@ -29,13 +29,16 @@ def count_dynamics(years):
     m = []
     my_dict = {}
 
-    for x in names_all.values:
-        if x[0] == 'F':
-            f.append(x[1])
-            my_dict[x[0]] = f
-        elif x[0] == 'M':
-            m.append(x[1])
-            my_dict[x[0]] = m
+    # for x in names_all.values:
+    #     if x[0] == 'F':
+    #         f.append(x[1])
+    #         my_dict[x[0]] = f
+    #     elif x[0] == 'M':
+    #         m.append(x[1])
+    #         my_dict[x[0]] = m
+
+    for key in set([key[0] for key in names_all.values]):
+        my_dict[key] = [value[1] for value in names_all.values if value[0] == key]
 
     return my_dict
 
