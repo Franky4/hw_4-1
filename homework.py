@@ -1,20 +1,8 @@
-
-# coding: utf-8
-
-# In[1]:
-
-
 import pandas as pd
 import os
 
 
-# In[2]:
-
-
 DATA_PATH = f'{os.getcwd()}/names/'
-
-
-# In[106]:
 
 
 def count_top3(years):
@@ -37,10 +25,19 @@ def count_dynamics(years):
     names_all = names_all.sort_values(by=['Gender', 'Year'], ascending=True)
     del names_all['Year']
 
-    return {x[0]: x[1] for x in names_all.values}
+    f = []
+    m = []
+    my_dict = {}
 
+    for x in names_all.values:
+        if x[0] == 'F':
+            f.append(x[1])
+            my_dict[x[0]] = f
+        elif x[0] == 'M':
+            m.append(x[1])
+            my_dict[x[0]] = m
 
-# In[101]:
+    return my_dict
 
 
 print(count_top3([1900, 1950, 2000]))
